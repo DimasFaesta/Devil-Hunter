@@ -1,30 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Barracuda;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace BehaviorTree
 {
-    public class ToPosNode : NodeBase
+    public class ToPosNode : NodeBase, IAiNode
     {
-        string _message;
-        NavMeshAgent _nav;
+        NNModel onnmfile;
+        Model runtimeModel;
+        IWorker worker;
+
         Transform _target;
+
         public ToPosNode(List<NodeBase> children, Transform Subjek, Transform Target) : base(children)
         {
-            _nav = Subjek.GetComponent<NavMeshAgent>();
             _target = Target;
         }
 
-        public ToPosNode(string Target)
+        public void InitializeAi()
         {
-            _message = Target;
+            runtimeModel = ModelLoader.Load(Resources.Load<NNModel>("AitoPos"));
+            worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, runtimeModel);
         }
         public override void Execute()
         {
-            Debug.Log(_message);
-         }
+            Tensor input = new Tensor();
+        }
     }
 
 }
