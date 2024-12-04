@@ -7,6 +7,6 @@ public class Contoh : BehaviorTree.Tree
 {
     public override NodeBase SetupNode()
     {
-        return null;
+        return new ToPosNode();
     }
 }

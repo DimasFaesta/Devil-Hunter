@@ -10,13 +10,19 @@ namespace BehaviorTree
 
         void Start()
         {
-           _root = SetupNode();
+            _root = SetupNode();
+            var initai = _root as IAiNode;
+            if (initai != null)
+            {
+                initai.InitializeAi();
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            _root.Next();
+            _root.Execute();
+            _root.NextNode();
         }
 
         public abstract NodeBase SetupNode();
