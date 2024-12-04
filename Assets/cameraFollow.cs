@@ -13,6 +13,6 @@ public class cameraFollow : MonoBehaviour
 
     void Update()
     {
-        transform.position = posawal + (posawal + player.position);
+        // transform.position = posawal + (posawal + player.position);
     }
 }
