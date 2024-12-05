@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,12 @@ using UnityEngine.InputSystem;
 
 public class GerakanTPS : MonoBehaviour
 {
-    public DataKarakter PlayerStats;
+
+    public DataKarakter _dataKarakter = new DataKarakter()
+    {
+        kecepatan = 2,
+        Health = 10,
+    };
 
     private CharacterController Movemen;
     private Vector2 _arahJalan;
@@ -30,7 +36,7 @@ public class GerakanTPS : MonoBehaviour
     void Update()
     {
         napak();
-        Movemen.Move(DirectionBasedCamera(_arahJalan) * PlayerStats.kecepatan * Time.deltaTime);
+        Movemen.Move(DirectionBasedCamera(_arahJalan) * _dataKarakter.kecepatan * Time.deltaTime);
     }
 
     public void GetMoveValue(InputAction.CallbackContext callbackContext)
@@ -38,6 +44,8 @@ public class GerakanTPS : MonoBehaviour
 
         _arahJalan.x = callbackContext.ReadValue<Vector2>().x;
         _arahJalan.y = callbackContext.ReadValue<Vector2>().y;
+        
+        Debug.Log("aa");
 
         if (!_isAiming)
             Rotasi(_arahJalan);
@@ -181,5 +189,11 @@ public class GerakanTPS : MonoBehaviour
         }
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "PowerUp")
+        {
+            other.GetComponent<IPowerUp>().GetPower(this);
+        }
+    }
 }
