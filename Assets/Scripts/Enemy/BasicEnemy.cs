@@ -10,9 +10,9 @@ public class BasicEnemy : EnemyBase
 
     protected override NodeBase SetNode()
     {
-        return new Condition((Vector3.Distance(transform.position, player.position) <= 3), new List<NodeBase>
+        return new Condition((Vector3.Distance(transform.position, player.position) <= 10), new List<NodeBase>
         {
-            new DoCoverNode()
+            new ToAttack(player)
         },
         new List<NodeBase>
         {

@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +9,32 @@ public class GameManager : MonoBehaviour
     public GameObject prefabplayer, OtherPlayerPrefab;
     private List<DataKarakter> playerlist;
     public List<DataKarakter> getplayerlist => playerlist;
+    public List<GameObject> Musuh;
     void Start()
     {
         StartCoroutine(shufflePowerUp());
+        StartCoroutine(shuffletarget());
+
+        if (NetManager.IsServer)
+        {
+            NetworkServer.Spawn(Instantiate(Musuh[0]));
+        }
     }
+
 
     public void OnStartGame()
     {
         Instantiate(prefabplayer);
+    }
+
+    IEnumerator shuffletarget()
+    {
+        yield return new WaitForSeconds(5);
+        foreach (var msh in Musuh)
+        {
+            msh.GetComponent<BasicEnemy>().player = NetworkServer.connections[Random.Range(0,NetworkServer.connections.Count)].identity.transform;
+        }
+        StartCoroutine(shuffletarget());
     }
 
     IEnumerator shufflePowerUp()

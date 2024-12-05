@@ -55,9 +55,10 @@ public class PackageHandler
 
 public struct PlayerStats : NetworkMessage
 {
-    public int Id;
-    public int Value;
-    public string Nama;
+    //public int Id;
+    //public int Value;
+    //public string Nama;
+   public DataKarakter data;
 }
 
 public struct InstructorOrder : NetworkMessage

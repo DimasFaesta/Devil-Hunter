@@ -46,7 +46,18 @@ public class GerakanTPS : NetworkBehaviour
 
     void Update()
     {
+        _dataKarakter.score += 1 * Time.deltaTime;
         napak();
+        if (_dataKarakter.Health <= 1)
+        {
+            NetworkClient.Send(new PlayerStats()
+            {
+                data = _dataKarakter
+                
+            });
+
+            Destroy(gameObject);
+        }
         Movemen.Move(DirectionBasedCamera(_arahJalan) * _dataKarakter.kecepatan * Time.deltaTime);
     }
 
@@ -56,7 +67,6 @@ public class GerakanTPS : NetworkBehaviour
         _arahJalan.x = callbackContext.ReadValue<Vector2>().x;
         _arahJalan.y = callbackContext.ReadValue<Vector2>().y;
         
-        Debug.Log("aa");
 
         if (!_isAiming)
             Rotasi(_arahJalan);
