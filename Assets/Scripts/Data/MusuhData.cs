@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class MusuhData : ScriptableObject
 {
-    public float InitialHealth, CdBasicAttack, CdSkill1, CdSkill2, CdSkill3;
+    public float InitialHealth,speed, CdBasicAttack, CdSkill1, CdSkill2, CdSkill3;
 }

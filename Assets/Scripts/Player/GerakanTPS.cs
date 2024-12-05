@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class GerakanTPS : MonoBehaviour
+public class GerakanTPS : NetworkBehaviour
 {
 
     public DataKarakter _dataKarakter = new DataKarakter()
@@ -31,6 +32,16 @@ public class GerakanTPS : MonoBehaviour
     void Start()
     {
         Movemen = GetComponent<CharacterController>();
+        if (isLocalPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = true;
+            GetComponent<CharacterController>().enabled = true;
+            Camera.main.GetComponent<cameraFollow>().player = transform;
+        }
+        else
+        {
+            
+        }
     }
 
     void Update()

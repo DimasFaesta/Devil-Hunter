@@ -11,11 +11,7 @@ namespace BehaviorTree
         public NodeBase(List<NodeBase> childs)
         {
             children = childs;
-            foreach (IAiNode child in children)
-            {
-                child.InitializeAi();
-                Debug.Log("jalan");
-            }
+
         }
         public NodeBase() { }
         public abstract void Execute();

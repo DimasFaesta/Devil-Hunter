@@ -18,15 +18,6 @@ public class GameManager : MonoBehaviour
         Instantiate(prefabplayer);
     }
 
-    public void AddPlayer(PlayerStats stats)
-    {
-        Debug.Log("lanjut");
-        var data = Instantiate(prefabplayer).GetComponent<GerakanTPS>()._dataKarakter;
-
-        data.id = stats.Id;
-        data.Nama = stats.Nama;
-    }
-
     IEnumerator shufflePowerUp()
     {
         yield return new WaitForSeconds(3);

@@ -43,6 +43,7 @@ public class NetManager : NetworkManager
 
     public override void OnStartServer()
     {
+        base.OnStartServer();
         OnServerStart.Invoke();
         PackageHandler.RegisterPackageServer();
         PackageHandler.OnNewClientConnect.AddListener(((arg0, stats) => OnNewClientConnect?.Invoke(stats)));
@@ -56,8 +57,7 @@ public class NetManager : NetworkManager
 
     public override void OnClientConnect()
     {
-        if (!NetworkClient.ready)
-            NetworkClient.Ready();
+        base.OnClientConnect();
         
         NetworkClient.Send(new PlayerStats()
         {
