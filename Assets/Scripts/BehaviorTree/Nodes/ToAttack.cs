@@ -20,6 +20,6 @@ public class ToAttack : NodeBase
     public override void Execute()
     {
         Debug.Log("Attacking..");
-        target.GetComponent<GerakanTPS>()._dataKarakter.Health -= 2;
+        target.GetComponent<NewBehaviourScript>().target.GetComponent<GerakanTPS>()._dataKarakter.Health -= 2;
     }
 }

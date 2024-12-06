@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(shufflePowerUp());
         StartCoroutine(shuffletarget());
-
         if (NetManager.IsServer)
         {
             NetworkServer.Spawn(Instantiate(Musuh[0]));

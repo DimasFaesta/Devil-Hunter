@@ -15,6 +15,7 @@ public class GerakanTPS : NetworkBehaviour
         Health = 10,
     };
 
+    public NewBehaviourScript bola;
     private CharacterController Movemen;
     private Vector2 _arahJalan;
     private Vector2 _arahAim;
@@ -36,7 +37,9 @@ public class GerakanTPS : NetworkBehaviour
         {
             GetComponent<PlayerInput>().enabled = true;
             GetComponent<CharacterController>().enabled = true;
+            bola = FindFirstObjectByType<NewBehaviourScript>();
             Camera.main.GetComponent<cameraFollow>().player = transform;
+            bola.target = transform;
         }
         else
         {
