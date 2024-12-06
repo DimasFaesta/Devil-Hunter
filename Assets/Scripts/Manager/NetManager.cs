@@ -17,13 +17,15 @@ public class NetManager : NetworkManager
     public UnityEvent<PlayerStats> OnNewClientConnect, OnClientLeave;
     public UnityEvent OnConnectToServer;
 
+    public static bool IsServer;
 
     #region From client Callback
 
     public void OnDataClientReceive(NetworkConnectionToClient conn,PlayerStats stats)
     {
-        stats.Id = conn.connectionId;
+        stats.data.id = conn.connectionId;
         OnNewClientConnect?.Invoke(stats);
+        
     }
 
     #endregion
@@ -35,7 +37,10 @@ public class NetManager : NetworkManager
     {
         var stat = new PlayerStats()
         {
-            Id = conn.connectionId
+           data = new DataKarakter()
+           {
+               id = conn.connectionId,
+           }
         };
         
         OnClientLeave?.Invoke(stat);
@@ -47,6 +52,7 @@ public class NetManager : NetworkManager
         OnServerStart.Invoke();
         PackageHandler.RegisterPackageServer();
         PackageHandler.OnNewClientConnect.AddListener(((arg0, stats) => OnNewClientConnect?.Invoke(stats)));
+        IsServer=true;
     }
 
     #endregion
@@ -58,11 +64,15 @@ public class NetManager : NetworkManager
     public override void OnClientConnect()
     {
         base.OnClientConnect();
+
         
         NetworkClient.Send(new PlayerStats()
         {
-            Id = -1,
-            Nama = "fulan"
+            data = new DataKarakter()
+            {
+                Nama ="flan",
+                id = -1
+            }
         });
         
         OnConnectToServer.Invoke();
@@ -74,5 +84,10 @@ public class NetManager : NetworkManager
     }
 
     #endregion
-    
+
+    private void OnDestroy()
+    {
+        StopClient();
+    }
+
 }

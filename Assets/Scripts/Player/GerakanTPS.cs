@@ -15,6 +15,7 @@ public class GerakanTPS : NetworkBehaviour
         Health = 10,
     };
 
+    public NewBehaviourScript bola;
     private CharacterController Movemen;
     private Vector2 _arahJalan;
     private Vector2 _arahAim;
@@ -36,7 +37,9 @@ public class GerakanTPS : NetworkBehaviour
         {
             GetComponent<PlayerInput>().enabled = true;
             GetComponent<CharacterController>().enabled = true;
+            bola = FindFirstObjectByType<NewBehaviourScript>();
             Camera.main.GetComponent<cameraFollow>().player = transform;
+            bola.target = transform;
         }
         else
         {
@@ -46,7 +49,18 @@ public class GerakanTPS : NetworkBehaviour
 
     void Update()
     {
+        _dataKarakter.score += 1 * Time.deltaTime;
         napak();
+        if (_dataKarakter.Health <= 1)
+        {
+            NetworkClient.Send(new PlayerStats()
+            {
+                data = _dataKarakter
+                
+            });
+
+            Destroy(gameObject);
+        }
         Movemen.Move(DirectionBasedCamera(_arahJalan) * _dataKarakter.kecepatan * Time.deltaTime);
     }
 
@@ -56,7 +70,6 @@ public class GerakanTPS : NetworkBehaviour
         _arahJalan.x = callbackContext.ReadValue<Vector2>().x;
         _arahJalan.y = callbackContext.ReadValue<Vector2>().y;
         
-        Debug.Log("aa");
 
         if (!_isAiming)
             Rotasi(_arahJalan);

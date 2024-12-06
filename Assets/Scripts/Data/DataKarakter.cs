@@ -9,4 +9,5 @@ public struct DataKarakter
     public int id;
     public float Health;
     public float kecepatan;
+    public float score;
 }

@@ -12,7 +12,7 @@ public class BasicEnemy : EnemyBase
     {
         return new Condition((Vector3.Distance(transform.position, player.position) <= 3), new List<NodeBase>
         {
-            new DoCoverNode()
+            new ToAttack(player)
         },
         new List<NodeBase>
         {

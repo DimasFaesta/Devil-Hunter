@@ -8,7 +8,7 @@ namespace BehaviorTree
     public class ToPlayer : NodeBase
     {
         NavMeshAgent _agent;
-        Transform _target;
+       public Transform _target;
 
         EnemyBase _enemy;
 
@@ -32,6 +32,7 @@ namespace BehaviorTree
         public override void Execute()
         {
             _agent.SetDestination(_target.position);
+            Debug.Log(_target);
             _enemy.state = EnemyState.Kejar;
             _agent.isStopped = false;
 

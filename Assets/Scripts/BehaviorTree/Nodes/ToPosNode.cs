@@ -44,7 +44,6 @@ namespace BehaviorTree
             // input[runtimeModel.inputs[1].name] = new Tensor(runtimeModel.inputs[1].shape);
             // worker.Execute(input);
             // Tensor output = worker.PeekOutput(ouputname);
-            NextNode();
         }
     }
 
